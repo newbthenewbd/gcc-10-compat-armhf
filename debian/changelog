@@ -1,4 +1,4 @@
-gcc-10-compat (10.1.0+rp1) UNRELEASED; urgency=medium
+gcc-10-compat (1:10.1.0+rp1) UNRELEASED; urgency=medium
 
   * Initial release. Large version number is to overcome previous
     versions of same binary packages.
