@@ -1,0 +1,3 @@
+This package exists to fix the buster->bullseye upgrade path broken
+by the libgcc1 (and friends) rename and associated premature removal
+of transitional packages.
