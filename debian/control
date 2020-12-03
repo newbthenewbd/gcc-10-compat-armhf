@@ -8,7 +8,8 @@ Standards-Version: 4.3.0
 Package: libgcc1
 Architecture: any
 Multi-Arch: same
-Depends: libgcc-s1 (>= 1:10.1.0-1), ${misc:Depends}
+Depends: libgcc-s1 (>= ${gccminver}),
+         ${misc:Depends}
 Provides: libgcc1-armel [armel],
           libgcc1-armhf [armhf]
 Description: GCC support library (transitional package)
@@ -18,7 +19,8 @@ Description: GCC support library (transitional package)
 Package: lib64gcc1
 Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
 Multi-Arch: same
-Depends: lib64gcc-s1 (>= 1:10.1.0-1), ${misc:Depends}
+Depends: lib64gcc-s1 (>= ${gccminver}),
+         ${misc:Depends}
 Description: GCC support library (transitional package) (64bit)
  This is a transitional package, and can be safely removed after
  completing a full upgrade.
@@ -26,7 +28,8 @@ Description: GCC support library (transitional package) (64bit)
 Package: lib32gcc1
 Architecture: amd64 ppc64 kfreebsd-amd64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Multi-Arch: same
-Depends: lib32gcc-s1 (>= 1:10.1.0-1), ${misc:Depends}
+Depends: lib32gcc-s1 (>= ${gccminver}),
+         ${misc:Depends}
 Description: GCC support library (transitional package) (32bit)
  This is a transitional package, and can be safely removed after
  completing a full upgrade.
@@ -34,7 +37,8 @@ Description: GCC support library (transitional package) (32bit)
 Package: libx32gcc1
 Architecture: amd64 i386
 Multi-Arch: same
-Depends: libx32gcc-s1 (>= 1:10.1.0-1), ${misc:Depends}
+Depends: libx32gcc-s1 (>= ${gccminver}),
+         ${misc:Depends}
 Description: GCC support library (transitional package) (x32)
  This is a transitional package, and can be safely removed after
  completing a full upgrade.
