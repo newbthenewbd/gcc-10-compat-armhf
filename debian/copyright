@@ -1,0 +1,5 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: debian/*
+Copyright: 2020, Ryan Pavlik <ryan@ryanpavlik.com>
+License: GPL-2+

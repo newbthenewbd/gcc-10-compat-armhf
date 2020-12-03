@@ -1,0 +1,8 @@
+files
+*.substvars
+.debhelper/
+lib32gcc1/
+libgcc1/
+libx32gcc1/
+lib64gcc1/
+debhelper-build-stamp
