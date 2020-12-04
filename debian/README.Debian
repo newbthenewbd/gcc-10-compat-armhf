@@ -40,13 +40,15 @@ I have a pretty minimal reproduction/test case at
 
 ## Instructions
 
-I've pushed this package to the OpenSuSE Build Service OBS instance, so there's
-a repo you can add which will let you finish upgrading without the unnecessary
-removals that other tools might suggest. Once the dist-upgrade is complete,
-please remove the repo and key from your machine: it's no longer needed, and
-it's good to keep the list of repos you use short.
+I've pushed this package to the [OpenSuSE Build Service OBS instance][obs], so
+there's a repo you can add which will let you finish upgrading without the
+unnecessary removals that other tools might suggest. Once the dist-upgrade is
+complete, please remove the repo and key from your machine: it's no longer
+needed, and it's good to keep the list of repos you use short.
 
-Before doing this, in case it's needed by the devs working on fixing it in
+[obs]: https://build.opensuse.org/project/show/home:rpavlik:bullseye-fix
+
+**Before doing this**, in case it's needed by the devs working on fixing it in
 Debian, I'd suggest making a copy of `/var/lib/dpkg/status` somewhere. It can be
 very useful in reproducing this or other upgrade bugs.
 
