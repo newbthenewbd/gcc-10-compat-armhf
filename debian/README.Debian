@@ -1,3 +1,97 @@
-This package exists to fix the buster->bullseye upgrade path broken
-by the libgcc1 (and friends) rename and associated premature removal
-of transitional packages.
+# gcc-10-compat workaround
+
+Maintained at: <https://salsa.debian.org/rpavlik/gcc-10-compat>
+
+This package exists to fix the buster->bullseye upgrade path, apparently broken
+by the libgcc1 (and friends) rename (to libgcc-s1, etc) and associated premature
+removal of transitional packages that would normally resolve this. The packages
+from this repo are empty except for the documentation and copyright files: they
+are only additional "edges" in the apt dependency graph, needed to allow
+upgrading from Buster to a new enough snapshot of Bullseye that has the libgcc
+renames. They can be removed once the `dist-upgrade`/`full-upgrade` is complete,
+and `deborphan` should be able to detect this automatically (they are in section
+"oldlibs")
+
+I have only tried this for x86_64, and I left out the packages that only applied
+to e.g. MIPS and HPPA. This should really be fixed in the gcc-10 package,
+hopefully that will happen before the Bullseye release.
+
+## About the problem
+
+There are a number of bugs filed for this - the one I have submitted this info
+to is <https://bugs.debian.org/972820>.
+
+In general you know you've hit this bug when you see this on trying to do a
+dist-upgrade from buster to bullseye:
+
+```
+The following packages have unmet dependencies:
+ libc6-dev : Breaks: libgcc-8-dev (< 8.4.0-2~) but 8.3.0-6 is to be installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+```
+
+In some related cases, apt-get will just suggest removal of a number of desired
+packages that still exist in Bullseye, instead of failing like this. I'm not
+sure why. Aptitude similarly recommends removing what feels like a large number
+of desired packages to fix it.
+
+I have a pretty minimal reproduction/test case at
+<https://salsa.debian.org/rpavlik/gcc-upgrade-testcase>
+
+## Instructions
+
+I've pushed this package to the OpenSuSE Build Service OBS instance, so there's
+a repo you can add which will let you finish upgrading without the unnecessary
+removals that other tools might suggest. Once the dist-upgrade is complete,
+please remove the repo and key from your machine: it's no longer needed, and
+it's good to keep the list of repos you use short.
+
+Before doing this, in case it's needed by the devs working on fixing it in
+Debian, I'd suggest making a copy of `/var/lib/dpkg/status` somewhere. It can be
+very useful in reproducing this or other upgrade bugs.
+
+To use, run these as a normal user with sudo permission:
+
+```sh
+echo "deb http://download.opensuse.org/repositories/home:/rpavlik:/bullseye-fix Debian_Testing/" | sudo tee /etc/apt/sources.list.d/bullseye-upgrade-fix.list
+curl http://download.opensuse.org/repositories/home:/rpavlik:/bullseye-fix/Debian_Testing/Release.key | sudo tee /etc/apt/trusted.gpg.d/bullseye-upgrade-fix.asc
+sudo apt update
+```
+
+After running that, you'll have transitional packages available named libgcc1,
+etc. that depend on their renamed equivalents in bullseye. This will let your
+`apt-get dist-upgrade` or `apt full-upgrade` complete, or at least get past the
+problem described above: you'll see
+
+- libgcc-s1 in the list of new packages to install
+- libgcc1 in the list of packages that will be upgraded (it's being upgraded to
+  this transitional package)
+
+
+Once the dist-upgrade completes successfully and you've rebooted, you can remove
+the repo and key you added above:
+
+```sh
+sudo rm /etc/apt/sources.list.d/bullseye-upgrade-fix.list
+sudo rm /etc/apt/trusted.gpg.d/bullseye-upgrade-fix.asc
+```
+
+If you want to uninstall these empty transitional packages too, I would suggest
+letting deborphan do it for you.
+
+Hope this helps!
+
+## References to this problem
+
+- Debian BTS
+  - <https://bugs.debian.org/972820>
+  - <https://bugs.debian.org/964477>
+  - Probably related: <https://bugs.debian.org/972936> and its archived relative <https://bugs.debian.org/946285>
+- Elsewhere - Note that the list below includes issues filed in incorrect places
+  (e.g. the raspberry pi kernel issue tracker), so don't necessarily add to any
+  of these reports.
+  - <https://unix.stackexchange.com/questions/592657>
+  - <https://unix.stackexchange.com/questions/602827>
+  - <https://github.com/raspberrypi/linux/issues/3812>
+  - <https://www.reddit.com/r/debian/comments/h878ci/fullupgrade_to_debian_testing_fails_due_to/>
+  - <https://www.reddit.com/r/debian/comments/gwzs5n/just_switched_to_testing_from_stable_am_having/>
