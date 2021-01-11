@@ -83,7 +83,7 @@ very useful in reproducing this or other upgrade bugs.
 To use, run these as a normal user with sudo permission:
 
 ```sh
-echo "deb http://download.opensuse.org/repositories/home:/rpavlik:/bullseye-fix Debian_Testing/" | sudo tee /etc/apt/sources.list.d/bullseye-upgrade-fix.list
+echo "deb http://download.opensuse.org/repositories/home:/rpavlik:/bullseye-fix/Debian_Testing/ ./" | sudo tee /etc/apt/sources.list.d/bullseye-upgrade-fix.list
 curl http://download.opensuse.org/repositories/home:/rpavlik:/bullseye-fix/Debian_Testing/Release.key | sudo tee /etc/apt/trusted.gpg.d/bullseye-upgrade-fix.asc
 sudo apt update
 ```
