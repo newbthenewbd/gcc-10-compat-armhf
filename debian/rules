@@ -3,3 +3,6 @@
 
 %:
 	dh $@
+
+override_dh_installdocs:
+	echo "skip to avoid conflicts"
