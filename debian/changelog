@@ -1,4 +1,10 @@
-gcc-10-compat (1:10.1.0+rp1) UNRELEASED; urgency=medium
+gcc-10-compat (1:10.1.0+rp2) bullseye; urgency=medium
+
+  * Disable packaging the copyright files.
+
+ -- Ryan Pavlik <ryan@ryanpavlik.com>  Tue, 12 Jan 2021 09:47:25 -0600
+
+gcc-10-compat (1:10.1.0+rp1) bullseye; urgency=medium
 
   * Initial release. Large version number is to overcome previous
     versions of same binary packages.
