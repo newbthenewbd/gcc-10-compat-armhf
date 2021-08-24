@@ -1,5 +1,17 @@
 # gcc-10-compat workaround
+Copy and fixup of the project https://salsa.debian.org/rpavlik/gcc-10-compat.
 
+Removes some extra steps (delete readme, fixup control file) for building this project on armhf systems with dpkg
+
+Below readme lists a dead repo so the following instructions are how you should use this.
+
+1. clone this repo somewhere on a box with dpkg installed
+2. open a terminal and cd into the root gcc-10-compat folder
+3. enter the command `sudo dpkg-deb --build ./build gcc-10-compat.deb`
+4. install the package for your architecture with `sudo apt install ./gcc-10-compat.deb`
+
+
+** Original ReadMe File From https://salsa.debian.org/rpavlik/gcc-10-compat is below**
 Maintained at: <https://salsa.debian.org/rpavlik/gcc-10-compat>
 
 This package exists to fix the buster->bullseye upgrade path, apparently broken
